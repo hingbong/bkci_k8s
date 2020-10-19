@@ -1,7 +1,6 @@
-
 #修改下面的host
 #复制该文件,命名为ingress.yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: bkci-ingress
@@ -13,13 +12,19 @@ spec:
     http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: bkci-gateway
-          servicePort: 80
+          service:
+            name: bkci-gateway
+            port: 
+              number: 80
   - host: consul.bk.tencent.com
     http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: consul-ui
-          servicePort: 80
+          service:
+            name: consul-ui
+            port: 
+              number: 80
